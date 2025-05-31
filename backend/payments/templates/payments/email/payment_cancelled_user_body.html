@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Платеж по заказу №{{ order.id }} отменен</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #f4f4f4; }
+        .email-container { max-width: 600px; margin: 20px auto; background-color: #ffffff; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        .header { background-color: #dc3545; color: white; padding: 10px 20px; text-align: center; border-top-left-radius: 8px; border-top-right-radius: 8px; }
+        .header h1 { margin: 0; font-size: 24px; }
+        .content { padding: 20px; color: #333333; line-height: 1.6; }
+        .content h2 { color: #dc3545; }
+        .footer { text-align: center; padding: 20px; font-size: 0.9em; color: #777777; }
+        .button { display: inline-block; background-color: #007bff; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; margin-top: 15px; }
+        a { color: #007bff; text-decoration: none; }
+        .reason { background-color: #f8d7da; border-left: 4px solid #dc3545; padding: 10px; margin-top: 10px; margin-bottom:15px; color: #721c24; }
+    </style>
+</head>
+<body>
+    <div class="email-container">
+        <div class="header">
+            <h1>Платеж Отменен</h1>
+        </div>
+        <div class="content">
+            <p>Здравствуйте, <strong>{{ user_greeting_name }}</strong>,</p>
+            <p>К сожалению, ваш платеж по заказу <strong>№{{ order.id }}</strong> в магазине BAT3D Store на сумму <strong>{{ order_total_cost|floatformat:2 }} руб.</strong> был отменен.</p>
+            
+            {% if cancellation_reason %}
+            <div class="reason">
+                <strong>Причина отмены</strong> (по данным платежной системы): {{ cancellation_reason }}
+            </div>
+            {% endif %}
+
+            <h2>Что делать дальше?</h2>
+            <ul>
+                <li>Проверьте, достаточно ли средств на вашем счете и корректны ли были введенные платежные данные.</li>
+                <li>Вы можете попробовать <a href="{{ site_url }}/profile/orders/{{ order.id }}/pay/">оплатить заказ №{{ order.id }} снова</a> из вашего личного кабинета.</li>
+                <li>Если у вас возникли вопросы или проблемы, пожалуйста, <a href="{{ site_url }}/contact/">свяжитесь с нашей службой поддержки</a>.</li>
+            </ul>
+            
+            <div style="text-align:center;">
+                 <a href="{{ site_url }}/profile/orders/" class="button">Перейти к моим заказам</a>
+            </div>
+
+            <p>Мы сожалеем о возникших неудобствах и надеемся на ваше понимание.</p>
+        </div>
+        <div class="footer">
+            <p>С уважением,<br>Команда BAT3D Store<br>
+            <a href="{{ site_url }}">{{ site_domain }}</a></p>
+        </div>
+    </div>
+</body>
+</html> 

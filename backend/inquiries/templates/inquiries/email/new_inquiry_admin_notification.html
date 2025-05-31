@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Новый запрос на услугу</title>
+    <style>
+        body { font-family: Arial, sans-serif; line-height: 1.6; margin: 0; padding: 20px; background-color: #f4f4f4; color: #333; }
+        .container { background-color: #fff; padding: 20px; border-radius: 5px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        h2 { color: #333; }
+        p { margin-bottom: 10px; }
+        strong { color: #555; }
+        .footer { margin-top: 20px; font-size: 0.9em; text-align: center; color: #777; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Новый запрос на услугу</h2>
+        <p>Здравствуйте,</p>
+        <p>Получен новый запрос на услугу через сайт <a href="{{ site_url }}">{{ site_url }}</a>.</p>
+        
+        <h3>Детали запроса:</h3>
+        <ul>
+            <li><strong>ID Запроса:</strong> {{ inquiry.id }}</li>
+            <li><strong>Услуга:</strong> {% if inquiry.service %}{{ inquiry.service.name }}{% else %}Общий запрос{% endif %}</li>
+            <li><strong>Имя клиента:</strong> {{ inquiry.name }}</li>
+            <li><strong>Email:</strong> <a href="mailto:{{ inquiry.email }}">{{ inquiry.email }}</a></li>
+            <li><strong>Телефон:</strong> {{ inquiry.phone|default:"Не указан" }}</li>
+            <li><strong>Статус:</strong> {{ inquiry.get_status_display }}</li>
+            <li><strong>Дата создания:</strong> {{ inquiry.created_at|date:"d.m.Y H:i" }}</li>
+        </ul>
+        
+        <h3>Сообщение:</h3>
+        <p style="white-space: pre-wrap; background-color: #f9f9f9; padding: 10px; border-radius: 3px;">{{ inquiry.message }}</p>
+        
+        <p>Пожалуйста, обработайте этот запрос. Вы можете посмотреть его в админ-панели.</p>
+        <!-- TODO: Add a direct link to the inquiry in the admin panel if possible -->
+        <!-- <p><a href="{{ site_url }}/admin/inquiries/serviceinquiry/{{ inquiry.id }}/change/">Открыть запрос в админ-панели</a></p> -->
+    </div>
+    <div class="footer">
+        <p>&copy; {{ "now"|date:"Y" }} BAT3D. Все права защищены.</p>
+    </div>
+</body>
+</html> 

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Заказ №{{ order.id }} успешно оплачен</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #f4f4f4; }
+        .email-container { max-width: 600px; margin: 20px auto; background-color: #ffffff; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        .header { background-color: #007bff; color: white; padding: 10px 20px; text-align: center; border-top-left-radius: 8px; border-top-right-radius: 8px; }
+        .header h1 { margin: 0; font-size: 24px; }
+        .content { padding: 20px; color: #333333; line-height: 1.6; }
+        .content h2 { color: #007bff; }
+        .order-details { margin-top: 20px; margin-bottom: 20px; width: 100%; border-collapse: collapse; }
+        .order-details th, .order-details td { border: 1px solid #dddddd; text-align: left; padding: 8px; }
+        .order-details th { background-color: #f2f2f2; }
+        .footer { text-align: center; padding: 20px; font-size: 0.9em; color: #777777; }
+        .button { display: inline-block; background-color: #28a745; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; margin-top: 15px; }
+        a { color: #007bff; text-decoration: none; }
+    </style>
+</head>
+<body>
+    <div class="email-container">
+        <div class="header">
+            <h1>Заказ Оплачен!</h1>
+        </div>
+        <div class="content">
+            <p>Здравствуйте, <strong>{{ user_greeting_name }}</strong>!</p>
+            <p>Ваш заказ <strong>№{{ order.id }}</strong> в магазине BAT3D Store на сумму <strong>{{ order_total_cost|floatformat:2 }} руб.</strong> был успешно оплачен.</p>
+            <p>Дата оплаты: {{ order_paid_at_formatted }}</p>
+            <p>В ближайшее время мы приступим к его обработке. Текущий статус вашего заказа: <strong>"{{ order.get_status_display }}"</strong>.</p>
+            
+            <h2>Детали заказа:</h2>
+            <table class="order-details">
+                <thead>
+                    <tr>
+                        <th>Наименование</th>
+                        <th>Кол-во</th>
+                        <th>Цена за шт.</th>
+                        <th>Сумма</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for item in order_items %}
+                    <tr>
+                        <td>
+                            {% if item.product %}
+                                {{ item.product.name }}
+                            {% elif item.printing_service %}
+                                {{ item.printing_service.name }}
+                            {% else %}
+                                (Наименование не указано)
+                            {% endif %}
+                        </td>
+                        <td>{{ item.quantity }}</td>
+                        <td>{{ item.price|floatformat:2 }} руб.</td>
+                        <td>{{ item.get_cost|floatformat:2 }} руб.</td>
+                    </tr>
+                {% endfor %}
+                    <tr>
+                        <td colspan="3" style="text-align:right;"><strong>Итого:</strong></td>
+                        <td><strong>{{ order_total_cost|floatformat:2 }} руб.</strong></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <p>Вы можете отслеживать детали и статус вашего заказа в <a href="{{ site_url }}/profile/orders/{{ order.id }}">личном кабинете</a> на нашем сайте.</p>
+            <div style="text-align:center;">
+                 <a href="{{ site_url }}/profile/orders/" class="button">Перейти к моим заказам</a>
+            </div>
+            <p>Спасибо за покупку!</p>
+        </div>
+        <div class="footer">
+            <p>С уважением,<br>Команда BAT3D Store<br>
+            <a href="{{ site_url }}">{{ site_domain }}</a></p>
+        </div>
+    </div>
+</body>
+</html> 

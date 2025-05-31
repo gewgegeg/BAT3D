@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ page_title|default:"Статус платежа" }} - BAT3D Store</title>
+    <style>
+        body { font-family: sans-serif; margin: 20px; padding: 0; background-color: #f4f4f4; color: #333; }
+        .container { background-color: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); text-align: center; max-width: 600px; margin: 40px auto; }
+        h1 { color: #333; }
+        p { font-size: 1.1em; }
+        .status-succeeded { color: green; }
+        .status-canceled { color: red; }
+        .status-pending { color: orange; }
+        .home-link { display: inline-block; margin-top: 20px; padding: 10px 20px; background-color: #007bff; color: white; text-decoration: none; border-radius: 5px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>{{ page_title|default:"Статус вашего платежа" }}</h1>
+        {% if order %}
+            <p>Заказ №{{ order.id }}</p>
+        {% elif order_id %}
+            <p>Заказ №{{ order_id }}</p>
+        {% endif %}
+
+        {% if yookassa_status == "succeeded" %}
+            <p class="status-succeeded">{{ message|default:"Ваш платеж успешно получен! Менеджер скоро свяжется с вами." }}</p>
+        {% elif yookassa_status == "canceled" %}
+            <p class="status-canceled">{{ message|default:"Платеж был отменен. Вы можете попробовать оплатить заказ снова из вашего личного кабинета или связаться с поддержкой." }}</p>
+        {% elif yookassa_status == "pending" %}
+             <p class="status-pending">{{ message|default:"Платеж ожидает подтверждения. Пожалуйста, ожидайте." }}</p>
+        {% else %}
+            <p>{{ message|default:"Спасибо! Ваш платеж обрабатывается ЮKassa. Вы получите уведомление о результате на указанную почту или в личном кабинете." }}</p>
+        {% endif %}
+        
+        <a href="/" class="home-link">Вернуться на главную</a>
+        <!-- TODO: Возможно, ссылка на "личный кабинет" или "мои заказы" -->
+    </div>
+</body>
+</html> 

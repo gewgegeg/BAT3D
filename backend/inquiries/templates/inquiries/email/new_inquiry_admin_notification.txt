@@ -1,0 +1,19 @@
+Здравствуйте,
+
+Получен новый запрос на услугу через сайт {{ site_url }}.
+
+Детали запроса:
+ID Запроса: {{ inquiry.id }}
+Услуга: {% if inquiry.service %}{{ inquiry.service.name }}{% else %}Общий запрос{% endif %}
+Имя клиента: {{ inquiry.name }}
+Email: {{ inquiry.email }}
+Телефон: {{ inquiry.phone|default:"Не указан" }}
+
+Сообщение:
+{{ inquiry.message }}
+
+Статус: {{ inquiry.get_status_display }}
+Дата создания: {{ inquiry.created_at|date:"d.m.Y H:i" }}
+
+Пожалуйста, обработайте этот запрос.
+Вы можете посмотреть его в админ-панели. 

@@ -1,0 +1,17 @@
+meta:
+      environment: python
+      toolchain:
+        name: pip
+        version: 3.10
+    build:
+      script:
+        - pip install -r requirements.txt
+        - cd backend && python manage.py collectstatic --noinput
+    run:
+      script: cd backend && gunicorn bat3d.wsgi:application --bind 0.0.0.0:$PORT
+      persistence:
+        logs: /app/logs
+        # Если вашему приложению нужны какие-то папки для хранения данных,
+        # которые должны сохраняться между перезапусками, раскомментируйте и настройте:
+        data:
+          /app/backend/media: media # Указываем, что папка /app/backend/media будет сохраняемой 

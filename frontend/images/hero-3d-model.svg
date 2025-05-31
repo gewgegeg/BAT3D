@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="800" height="600" viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="glow" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#6E56CF;stop-opacity:0.4"/>
+      <stop offset="100%" style="stop-color:#9B8AFB;stop-opacity:0.1"/>
+    </linearGradient>
+    <filter id="blur">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="20"/>
+    </filter>
+  </defs>
+  
+  <!-- Glow effect -->
+  <circle cx="400" cy="300" r="200" fill="url(#glow)" filter="blur"/>
+  
+  <!-- 3D Printer Frame -->
+  <path d="M250 150h300v400H250z" fill="none" stroke="#fff" stroke-width="4"/>
+  <path d="M250 150l100-50h300l-100 50" fill="none" stroke="#fff" stroke-width="4"/>
+  <path d="M550 150v400l100-50V100" fill="none" stroke="#fff" stroke-width="4"/>
+  
+  <!-- Print Head -->
+  <g transform="translate(0,0)">
+    <animateTransform
+      attributeName="transform"
+      type="translate"
+      values="0 0; 0 200; 0 0"
+      dur="4s"
+      repeatCount="indefinite"
+    />
+    <rect x="300" y="180" width="200" height="20" fill="#FF6B6B"/>
+    <path d="M390 200l10 20h10l10-20" fill="#FF6B6B"/>
+  </g>
+  
+  <!-- Print Platform -->
+  <rect x="270" y="500" width="260" height="10" fill="#fff"/>
+  
+  <!-- Printing Object (with animation) -->
+  <g transform="translate(0,0)">
+    <animateTransform
+      attributeName="transform"
+      type="scale"
+      values="1 0; 1 1"
+      dur="4s"
+      repeatCount="indefinite"
+    />
+    <path d="M350 500l50-100l50 100z" fill="none" stroke="#9B8AFB" stroke-width="4">
+      <animate
+        attributeName="stroke-dasharray"
+        values="0,1000;1000,0"
+        dur="4s"
+        repeatCount="indefinite"
+      />
+    </path>
+  </g>
+  
+  <!-- Decorative Lines -->
+  <g stroke="#fff" stroke-width="1" opacity="0.2">
+    <line x1="0" y1="0" x2="800" y2="600"/>
+    <line x1="800" y1="0" x2="0" y2="600"/>
+    <circle cx="400" cy="300" r="250" fill="none"/>
+    <circle cx="400" cy="300" r="150" fill="none"/>
+  </g>
+</svg> 

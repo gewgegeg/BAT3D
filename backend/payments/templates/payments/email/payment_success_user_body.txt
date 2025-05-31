@@ -1,0 +1,20 @@
+Здравствуйте, {{ user_greeting_name }}!
+
+Ваш заказ №{{ order.id }} в магазине BAT3D Store на сумму {{ order_total_cost|floatformat:2 }} руб. был успешно оплачен.
+Дата оплаты: {{ order_paid_at_formatted }}
+
+В ближайшее время мы приступим к его обработке. Статус вашего заказа "{{ order.get_status_display }}".
+Вы можете отслеживать детали заказа в вашем личном кабинете на нашем сайте.
+
+{% if order_items %}
+Состав заказа:
+{% for item in order_items %}
+- {% if item.product %}{{ item.product.name }}{% elif item.printing_service %}{{ item.printing_service.name }}{% else %}(Наименование не указано){% endif %}: {{ item.quantity }} шт. x {{ item.price|floatformat:2 }} руб. = {{ item.get_cost|floatformat:2 }} руб.
+{% endfor %}
+{% endif %}
+
+Спасибо за покупку!
+
+С уважением,
+Команда BAT3D Store
+{{ site_url }} 
