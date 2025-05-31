@@ -1,0 +1,35 @@
+    # Python
+    __pycache__/
+    *.py[cod]
+    *$py.class
+
+    # Виртуальные окружения
+    .env
+    venv/
+    .venv/
+    env/
+    ENV/
+    pip-freeze.txt
+    pipenv-freeze.txt
+
+    # Базы данных
+    *.sqlite3
+    db.sqlite3
+
+    # Django
+    *.log
+    local_settings.py
+    staticfiles/
+    # media/ # Закомментировано, так как медиафайлы могут понадобиться в репозитории для некоторых стратегий бэкапа
+
+    # Node.js (если есть фронтенд)
+    node_modules/
+    npm-debug.log
+    yarn-error.log
+    build/
+    dist/
+
+    # IDE / Редакторы
+    .vscode/
+    .idea/
+    *.swp
